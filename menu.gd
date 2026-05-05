@@ -15,3 +15,15 @@ func _on_start_pressed() -> void:
 	else:
 		game.ismobile = false
 	get_tree().change_scene_to_file("res://main.tscn")
+
+
+func _on_deviceb_pressed() -> void:
+	if $device.selected == 0:
+		$device.selected = 1
+	else:
+		$device.selected = 0
+
+
+
+func _on_startb_pressed() -> void:
+	$start.emit_signal("pressed")

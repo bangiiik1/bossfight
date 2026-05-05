@@ -3,10 +3,11 @@ extends ColorRect
 @export var walkjoy = false
 var direction = Vector2.ZERO
 var dist = 200
-func _ready() -> void:
-	if !OS.has_feature("mobile"):
-		queue_free()
+func _process(delta: float) -> void:
+	visible = game.ismobile
 func _input(event: InputEvent) -> void:
+	if !game.ismobile:
+		return
 	if event is InputEventScreenDrag and global_position.distance_to(event.position) > dist:
 		return
 	if event is InputEventScreenDrag:

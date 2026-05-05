@@ -32,6 +32,8 @@ func dash():
 	await tween.finished
 	ram = false
 func _on_timer_timeout() -> void:
+	if hp <= 0:
+		return
 	var random = randi_range(1,8)
 	if ram:
 		return
@@ -92,7 +94,8 @@ func _on_timer_timeout() -> void:
 		$fly.stop()
 func _process(delta: float) -> void:
 	if hp <= 0:
-		queue_free()
+		game.win = 2
+		get_tree().change_scene_to_file("res://menu.tscn")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

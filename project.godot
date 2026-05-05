@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="bossfight"
-run/main_scene="res://main.tscn"
+run/main_scene="uid://cvviuqlr54rf0"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+game="*res://game.gd"
 
 [display]
 

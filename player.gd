@@ -15,12 +15,13 @@ func shoot(angle):
 		bullet.speed = 300
 func _physics_process(delta: float) -> void:
 	if hp <= 0:
-		$Sprite2D.modulate = Color(1,1,1,0.5)
+		get_tree().change_scene_to_file("res://menu.tscn")
+		game.win = 1
 		return
 	var direction = Vector2.ZERO
 	direction.x += Input.get_action_strength("d")-Input.get_action_strength("a")
 	direction.y += Input.get_action_strength("s")-Input.get_action_strength("w")
-	if OS.has_feature("mobile"):
+	if game.ismobile:
 		direction = joy.direction
 	direction = direction.normalized()
 	velocity = direction*speed

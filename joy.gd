@@ -2,7 +2,7 @@ extends ColorRect
 @onready var stick = $stick
 @export var walkjoy = false
 var direction = Vector2.ZERO
-var dist = 200
+var dist = 300
 func _process(delta: float) -> void:
 	visible = game.ismobile
 func _input(event: InputEvent) -> void:

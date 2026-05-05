@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1778008655|214302858630';
+const CACHE_VERSION = '1778010197|215844728010';
 /** @type {string} */
 const CACHE_PREFIX = 'bossfight-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;

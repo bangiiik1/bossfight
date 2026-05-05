@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://n2hks8mgyf5c"]
+
+[ext_resource type="PackedScene" uid="uid://byrt8blf10aji" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dv8n78lj60rwg" path="res://boss.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b21k33iqq3vqf" path="res://path_2d.gd" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cuvlo6po5tkc7" path="res://ui.tscn" id="4_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 813, 117, 0, 0, 0, 0, 812, 482, 0, 0, 0, 0, 181, 477, 0, 0, 0, 0, 176, 114, 0, 0, 0, 0, 813, 117)
+}
+point_count = 5
+
+[node name="main" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(447, 223)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h2yge")
+script = ExtResource("2_h2yge")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(813, 117)
+rotates = false
+
+[node name="boss" parent="Path2D/PathFollow2D" instance=ExtResource("2_0xm2m")]
+
+[node name="ui" parent="." instance=ExtResource("4_1bvp3")]

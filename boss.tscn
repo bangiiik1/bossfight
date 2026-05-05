@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dv8n78lj60rwg"]
+
+[ext_resource type="Texture2D" uid="uid://b25omlbw1gjvd" path="res://boss.png" id="1_0bnu1"]
+[ext_resource type="Script" uid="uid://dlv60f1mx68sr" path="res://boss.gd" id="1_6xxrv"]
+[ext_resource type="Texture2D" uid="uid://dije036lbccsw" path="res://particle.png" id="2_skx2t"]
+
+[sub_resource type="Curve" id="Curve_skx2t"]
+_data = [Vector2(0.0352941, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xxrv"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skx2t"]
+size = Vector2(33, 33)
+
+[node name="boss" type="CharacterBody2D" groups=["boss"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_6xxrv")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture = ExtResource("2_skx2t")
+direction = Vector2(2.08189e-12, 2.08189e-12)
+spread = 180.0
+gravity = Vector2(2.08189e-12, 2.08189e-12)
+initial_velocity_min = 2.15
+initial_velocity_max = 63.37
+scale_amount_curve = SubResource("Curve_skx2t")
+color = Color(1, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0bnu1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.38498e-08, 0)
+shape = SubResource("RectangleShape2D_6xxrv")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_skx2t")
+
+[node name="fly" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="fly" to="." method="_on_fly_timeout"]

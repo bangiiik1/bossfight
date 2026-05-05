@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuvlo6po5tkc7"]
+
+[ext_resource type="Script" uid="uid://bk6lx8xmg78ii" path="res://progress_bar.gd" id="1_fyqef"]
+[ext_resource type="Script" uid="uid://hb3b0g2akxq3" path="res://joy.gd" id="2_m6e0p"]
+[ext_resource type="Script" uid="uid://chnd13wm51d1b" path="res://fullscreen.gd" id="3_27fn8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6e0p"]
+bg_color = Color(0.110536, 0.725405, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6e0p"]
+size = Vector2(1500, 1000)
+
+[node name="ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 487.0
+offset_top = 21.0
+offset_right = 631.0
+offset_bottom = 48.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_m6e0p")
+max_value = 30.0
+value = 30.0
+script = ExtResource("1_fyqef")
+
+[node name="joy" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.470588)
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.9
+anchor_right = 0.1
+anchor_bottom = 0.9
+offset_top = -150.0
+offset_right = 150.0
+grow_vertical = 0
+color = Color(0.544974, 0.544974, 0.544974, 1)
+script = ExtResource("2_m6e0p")
+walkjoy = true
+
+[node name="stick" type="ColorRect" parent="CanvasLayer/joy"]
+modulate = Color(1, 1, 1, 0.470588)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="joy2" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.470588)
+anchors_preset = -1
+anchor_left = 0.9
+anchor_top = 0.9
+anchor_right = 0.9
+anchor_bottom = 0.9
+offset_left = -150.0
+offset_top = -150.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.544974, 0.544974, 0.544974, 1)
+script = ExtResource("2_m6e0p")
+
+[node name="stick" type="ColorRect" parent="CanvasLayer/joy2"]
+modulate = Color(1, 1, 1, 0.470588)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fullscreen" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2(586, 308)
+shape = SubResource("RectangleShape2D_m6e0p")
+visibility_mode = 1
+script = ExtResource("3_27fn8")
+
+[connection signal="pressed" from="CanvasLayer/fullscreen" to="CanvasLayer/fullscreen" method="_on_pressed"]

@@ -4,6 +4,10 @@ extends Area2D
 var touchesplr = false
 var active = false
 func _ready() -> void:
+	match game.difficulty:
+		0: last = 0.3
+		1: last = 0.6
+		2: last = 1.1
 	$Sprite2D.modulate = Color(1,1,1,0.3)
 	await get_tree().create_timer(warning).timeout
 	active = true

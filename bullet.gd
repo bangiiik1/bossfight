@@ -8,9 +8,19 @@ func _process(delta: float) -> void:
 	velocity *= speed
 	global_position += velocity*delta
 func explode():
-	for i in range(3):
+	var shards = 3
+	match game.difficulty:
+		0: shards = 2
+		4: shards = 4
+	for i in range(shards):
 		var bullet = preload("res://bullet.tscn").instantiate()
-		bullet.speed = 500
+		if game.difficulty == 0:
+			bullet.speed = 300
+		else:
+			bullet.speed = 500
+		if game.difficulty == 4: bullet.speed = 550
+		if game.difficulty == 1: bullet.speed = 350
+		if game.difficulty == 2: bullet.speed = 450
 		bullet.direction = randf_range(0,TAU)
 		bullet.position = position
 		get_tree().root.add_child(bullet)

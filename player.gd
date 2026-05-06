@@ -4,6 +4,11 @@ extends CharacterBody2D
 @onready var joy = get_node("/root/main/ui/CanvasLayer/joy")
 var canshoot = true
 var bulletscn = preload("res://mybullet.tscn")
+func _ready() -> void:
+	match game.difficulty:
+		0: hp = 4
+		1: hp = 4
+		4: hp = 2
 func shoot(angle):
 	if canshoot:
 		$cooldown.start()

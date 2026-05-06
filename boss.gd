@@ -2,6 +2,21 @@ extends CharacterBody2D
 @export var ram = false
 @export var hp = 30
 var flydir = Vector2.ZERO
+func _ready() -> void:
+	match game.difficulty:
+		0: $Timer.wait_time = 1.7
+		1: $Timer.wait_time = 1.5
+		2: $Timer.wait_time = 1.2
+		4: $Timer.wait_time = 0.7
+	match game.difficulty:
+		0: hp = 23
+		1: hp = 26
+		2: hp = 28
+		4: hp = 35
+	match game.difficulty:
+		1: $fly.wait_time = 0.23
+		2: $fly.wait_time = 0.16
+		4: $fly.wait_time = 0.07
 func shoot(speed: float,direction:float, pos:Vector2):
 	var bullet = preload("res://bullet.tscn").instantiate()
 	bullet.direction = direction
@@ -15,15 +30,26 @@ func shootlaser(pos,rot):
 	get_tree().root.add_child(laser)
 func circle(delay):
 	await get_tree().create_timer(delay).timeout
-	for i in range(10):
+	var projectiles = 10
+	match game.difficulty:
+		0: projectiles = 5
+		1: projectiles = 6
+		2: projectiles = 8
+		4: projectiles = 12
+	for i in range(projectiles):
 		shoot(250,
-		deg_to_rad(i*(360/10)),
+		deg_to_rad(i*(360/projectiles)),
 		global_position)
 func dash():
 	ram = true
 	var startpos = global_position
 	var tween = create_tween()
 	var speed = 500
+	match game.difficulty:
+		0: speed = 250
+		1: speed = 400
+		2: speed = 450
+		4: speed = 600
 	var time = startpos.distance_to(get_tree().get_first_node_in_group("player").global_position)/speed
 	circle(time/2)
 	tween.tween_property(self,"global_position",get_tree().get_first_node_in_group("player").global_position,time)
@@ -35,9 +61,10 @@ func _on_timer_timeout() -> void:
 	if hp <= 0:
 		return
 	var random = randi_range(1,8)
+	if game.difficulty == 0: random -= 1
 	if ram:
 		return
-	if random == 1:
+	if random <= 1:
 		shoot(400,
 		(get_tree().get_first_node_in_group("player").global_position - global_position).angle(),
 		global_position)
@@ -73,7 +100,10 @@ func _on_timer_timeout() -> void:
 		shootlaser(get_tree().get_first_node_in_group("player").global_position,randomangle+90)
 	if random == 7:
 		var windowsize = get_viewport_rect().size
-		for i in range(4):
+		var amout = 4
+		if game.difficulty == 0: amout = 2
+		if game.difficulty == 1: amout = 3
+		for i in range(amout):
 			shootlaser(Vector2(randf_range(0,windowsize.x),randf_range(0,windowsize.y)),randf_range(0,360))
 	if random == 8:
 		ram = true

@@ -1,14 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuvlo6po5tkc7"]
+[gd_scene load_steps=4 format=3 uid="uid://cuvlo6po5tkc7"]
 
 [ext_resource type="Script" uid="uid://bk6lx8xmg78ii" path="res://progress_bar.gd" id="1_fyqef"]
 [ext_resource type="Script" uid="uid://hb3b0g2akxq3" path="res://joy.gd" id="2_m6e0p"]
-[ext_resource type="Script" uid="uid://chnd13wm51d1b" path="res://fullscreen.gd" id="3_27fn8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6e0p"]
 bg_color = Color(0.110536, 0.725405, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6e0p"]
-size = Vector2(1500, 1000)
 
 [node name="ui" type="Control"]
 layout_mode = 3
@@ -87,11 +83,3 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="fullscreen" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(586, 308)
-shape = SubResource("RectangleShape2D_m6e0p")
-visibility_mode = 1
-script = ExtResource("3_27fn8")
-
-[connection signal="pressed" from="CanvasLayer/fullscreen" to="CanvasLayer/fullscreen" method="_on_pressed"]

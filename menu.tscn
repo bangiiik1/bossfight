@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvviuqlr54rf0"]
+[gd_scene load_steps=7 format=3 uid="uid://cvviuqlr54rf0"]
 
 [ext_resource type="Script" uid="uid://cp83cpc5jkdr8" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://chnd13wm51d1b" path="res://fullscreen.gd" id="2_ouk20"]
 
 [sub_resource type="Theme" id="Theme_vsb4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lti8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ouk20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mae5d"]
+size = Vector2(1500, 1000)
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -101,7 +105,14 @@ position = Vector2(67.5, 15.58)
 scale = Vector2(6.68951, 1.36)
 shape = SubResource("RectangleShape2D_ouk20")
 
+[node name="fullscreen" type="TouchScreenButton" parent="."]
+position = Vector2(586, 308)
+shape = SubResource("RectangleShape2D_mae5d")
+visibility_mode = 1
+script = ExtResource("2_ouk20")
+
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="start/startb" to="." method="_on_startb_pressed"]
 [connection signal="pressed" from="device/deviceb" to="." method="_on_deviceb_pressed"]
 [connection signal="pressed" from="difficulty/hardb" to="." method="_on_hardb_pressed"]
+[connection signal="pressed" from="fullscreen" to="fullscreen" method="_on_pressed"]

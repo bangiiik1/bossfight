@@ -2,6 +2,7 @@ extends CharacterBody2D
 @export var speed = 200
 @export var hp = 3
 @onready var joy = get_node("/root/main/ui/CanvasLayer/joy")
+@onready var shootjoy = get_node("/root/main/ui/CanvasLayer/joy2")
 var canshoot = true
 var bulletscn = preload("res://mybullet.tscn")
 func _ready() -> void:
@@ -9,6 +10,10 @@ func _ready() -> void:
 		0: hp = 4
 		1: hp = 4
 		4: hp = 2
+	if game.ismobile:
+		hp += 1
+	if !game.ismobile:
+		$aim.hide()
 func shoot(angle):
 	if canshoot:
 		$cooldown.start()
@@ -31,11 +36,12 @@ func _physics_process(delta: float) -> void:
 	direction = direction.normalized()
 	velocity = direction*speed
 	move_and_slide()
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !game.ismobile:
 		shoot((get_global_mouse_position()-global_position).angle())
 	var screen_size = get_viewport().get_visible_rect().size
 	global_position.x = clamp(global_position.x, 0, screen_size.x)
 	global_position.y = clamp(global_position.y, 0, screen_size.y)
+	$aim.points[1] = shootjoy.direction*10000
 
 
 func _on_cooldown_timeout() -> void:

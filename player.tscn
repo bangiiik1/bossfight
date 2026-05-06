@@ -9,6 +9,9 @@ size = Vector2(32, 32)
 [node name="player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_onrkg")
 
+[node name="aim" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 100, 2.08189e-12)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hqtel")
 

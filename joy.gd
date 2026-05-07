@@ -8,13 +8,16 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if !game.ismobile:
 		return
-	if event is InputEventScreenDrag and global_position.distance_to(event.position) > dist:
+	if (event is InputEventScreenDrag or event is InputEventScreenTouch) and global_position.distance_to(event.position) > dist:
 		return
-	if event is InputEventScreenDrag:
+	if (event is InputEventScreenDrag) or (event is InputEventScreenTouch and event.is_pressed()):
 		stick.position = event.position-position - stick.size/2
 		direction = (stick.position-Vector2(size.x/2-stick.size.x/2,size.y/2-stick.size.y/2)).normalized()
 	if event is InputEventScreenTouch and !event.is_pressed():
-		if !walkjoy:
-			get_node("/root/main/player").shoot(direction.angle())
-		stick.position = Vector2(size.x/2-stick.size.x/2,size.y/2-stick.size.y/2)
-		direction = Vector2.ZERO
+		if global_position.distance_to(event.position) > dist:
+			return
+		else:
+			if !walkjoy:
+				get_node("/root/main/player").shoot(direction.angle())
+			direction = Vector2.ZERO
+			stick.position = Vector2(size.x/2-stick.size.x/2,size.y/2-stick.size.y/2)
